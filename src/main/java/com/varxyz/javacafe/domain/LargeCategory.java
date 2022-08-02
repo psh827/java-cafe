@@ -18,4 +18,15 @@ import lombok.Setter;
 public class LargeCategory {
 	private long lcId;
 	private String largeCategoryName;
+	
+	public LargeCategory() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public LargeCategory(String largeCategoryName) {
+		super();
+		this.largeCategoryName = largeCategoryName;
+	}
+	
+	
 }

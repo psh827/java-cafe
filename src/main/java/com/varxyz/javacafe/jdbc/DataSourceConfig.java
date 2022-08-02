@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.varxyz.javacafe.dao.AdminDao;
+import com.varxyz.javacafe.service.AdminServiceImpl;
+
 
 
 @Configuration
@@ -26,6 +29,16 @@ public class DataSourceConfig {
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
 		return new JdbcTemplate(dataSource());
+	}
+	
+	@Bean
+	public AdminDao adminDao() {
+		return new AdminDao(dataSource());
+	}
+	
+	@Bean
+	public AdminServiceImpl adminService() {
+		return new AdminServiceImpl();
 	}
 	
 //	@Bean

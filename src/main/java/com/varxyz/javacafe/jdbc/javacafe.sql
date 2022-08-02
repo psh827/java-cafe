@@ -3,29 +3,38 @@ CREATE TABLE LargeCategory(
 	largeCategoryName	VARCHAR(30)		NOT NULL
 )AUTO_INCREMENT 1001;
 
-CREATE TABLE SmallCategory(
-	scId		BIGINT		PRIMARY KEY AUTO_INCREMENT,
-	lcFk		BIGINT 		NOT NULL,
-	smallCategoryName	VARCHAR(30)	NOT NULL,
-	
-	CONSTRAINT SmallCategory_lcFk_FK FOREIGN KEY (lcFk) REFERENCES LargeCategory(lcId)
-)AUTO_INCREMENT 2001;
-
+INSERT INTO LargeCategory (largeCategoryName) VALUE ("커피");
+SELECT * FROM LargeCategory;
 SELECT * FROM MenuItem;
+SELECT * FROM Image;
 
 CREATE TABLE MenuItem(
 	mId 		BIGINT 		PRIMARY KEY AUTO_INCREMENT,
-	scFk	BIGINT		NOT NULL,
-	image 	LONGBLOB,
+	lcFk	BIGINT		NOT NULL,
 	menuItemName	VARCHAR(30)	NOT NULL,
 	menuPrice		INT			NOT NULL,
 	ihb				CHAR(1)		NOT NULL,
-	stock			INT			NOT NULL,
+	outOfStock		CHAR(1)		NOT NULL DEFAULT 'N',
 	regDate 		TIMESTAMP 	NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
-	CONSTRAINT MenuItem_scFk_FK FOREIGN KEY (scFk) REFERENCES SmallCategory(scId)
+	CONSTRAINT MenuItem_scFk_FK FOREIGN KEY (lcFk) REFERENCES LargeCategory(lcId)
+)AUTO_INCREMENT 2001;
+
+CREATE TABLE Image(
+	imgId BIGINT PRIMARY KEY AUTO_INCREMENT,
+	menuFk	BIGINT NOT NULL,
+	imgName VARCHAR(200)	NOT NULL,
+	imgOriName	VARCHAR(300)	NOT NULL,
+	imgUrl VARCHAR(500)		NOT NULL,
+	
+	CONSTRAINT Image_menuFk_FK FOREIGN KEY (menuFk) REFERENCES MenuItem(mId)
 )AUTO_INCREMENT 3001;
+
+
+SELECT m.menuItemName, m.menuPrice, m.ihb, m.stock, l.largeCategoryName, i.imgUrl, m.regDate FROM MenuItem m INNER JOIN Image i ON m.mId = i.menuFk
+ INNER JOIN LargeCategory l ON l.lcId = m.lcFk;
 
 DROP TABLE LargeCategory;
 DROP TABLE SmallCategory;
 DROP TABLE MenuItem;
+DROP TABLE Image;

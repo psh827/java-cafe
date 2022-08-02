@@ -1,5 +1,8 @@
 package com.varxyz.javacafe.domain;
 
+
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +21,29 @@ public class MenuItem {
 	private long mId;
 	private long scFk;
 	private LargeCategory largeCategory;
-	private SmallCategory smallCategory;
 	private String menuItemName;
 	private int menuPrice;
+	private Image image;
 	//ice or hot or bakery 
 	private char ihb;
-	private int stock;
+	private char outOfStock;
+	private Date regDate;
+	
+	public MenuItem() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public MenuItem(String menuItemName, int menuPrice, char ihb, char outOfStock,
+			LargeCategory largeCategory, Image image, Date regDate) {
+		this.largeCategory = largeCategory;
+		this.menuItemName = menuItemName;
+		this.menuPrice = menuPrice;
+		this.image = image;
+		this.outOfStock = outOfStock;
+		this.ihb = ihb;
+		this.regDate = regDate;
+	}
+	
+	
 	
 }
