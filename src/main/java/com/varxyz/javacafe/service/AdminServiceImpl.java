@@ -9,6 +9,7 @@ import com.varxyz.javacafe.dao.AdminDao;
 import com.varxyz.javacafe.domain.Image;
 import com.varxyz.javacafe.domain.LargeCategory;
 import com.varxyz.javacafe.domain.MenuItem;
+import com.varxyz.javacafe.provider.CategoryProvider;
 
 public class AdminServiceImpl implements AdminService{
 	
@@ -34,8 +35,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public boolean changeDetail(int changePrice, char outOfStock) {
-		return adminDao.changeDetail(changePrice, outOfStock);
+	public List<CategoryProvider> getCategory() {
+		return adminDao.getCategory();
 	}
 
 

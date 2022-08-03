@@ -5,6 +5,7 @@ import java.util.List;
 import com.varxyz.javacafe.domain.Image;
 import com.varxyz.javacafe.domain.LargeCategory;
 import com.varxyz.javacafe.domain.MenuItem;
+import com.varxyz.javacafe.provider.CategoryProvider;
 
 /**
  * 관리자가 해야 하는 메소드.
@@ -18,5 +19,5 @@ public interface AdminService {
 	long addProduct(MenuItem menuItem, Image img);
 	boolean addCategory(LargeCategory largeCategory);
 	List<MenuItem> viewAllMenu();
-	boolean changeDetail(int changePrice, char outOfStock);
+	List<CategoryProvider> getCategory();
 }

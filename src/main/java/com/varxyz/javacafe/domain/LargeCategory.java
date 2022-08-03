@@ -27,6 +27,10 @@ public class LargeCategory {
 		super();
 		this.largeCategoryName = largeCategoryName;
 	}
+
+	public LargeCategory(long categoryId) {
+		this.lcId = categoryId;
+	}
 	
 	
 }

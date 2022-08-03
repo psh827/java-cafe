@@ -10,26 +10,15 @@
 <body>
 	<div class="view_container">
 	<c:forEach var="list" items="${menuList}">
-		<form action="changeDetail" method="post">
 			<div>
 				<img src="<c:url value='/resources/menuImg/${list.image.imgName}'/>">
 				<p>제품명 : <span>${list.menuItemName}</span></p>
-				<p>가격 : <span>${list.menuPrice}</span></p><label>수정</label><input type="text" name="menuPrice"/>
+				<p>가격 : <span>${list.menuPrice}</span></p>
 				<p>제품종류 : <span>${list.ihb}</span></p>
 				<p>카테고리 : <span>${list.largeCategory.largeCategoryName}</span></p>
 				<p>품절여부 : <span>${list.outOfStock}</span>
-				<div class="radio-group">
-					<label>N</label>
-					<input type="radio" name="outOfStock" value="N">
-					<label>Y</label>
-					<input type="radio" name="outOfStock" value="Y">
-				</div>
 				<p>등록날짜 : <span>${list.regDate}</span></p>
-				<label>비밀번호입력</label>
-				<input type="password" name="passwd"/>
-				<button type="submit">변경</button>
 			</div>	
-		</form>
 	</c:forEach>
 	</div>
 

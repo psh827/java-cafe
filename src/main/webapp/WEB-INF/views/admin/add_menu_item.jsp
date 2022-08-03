@@ -8,17 +8,29 @@
 <title>메뉴등록</title>
 </head>
 <body>
-<form action="add_menu_item" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="menuItemCommand" method="post" enctype="multipart/form-data">
 	<label>상품이름</label>
-	<input type="text" name="menuItemName"/>
+	<form:input path="menuItemName"/><br>
 	<label>가격</label>
-	<input type="text" name="menuPrice"/>
+	<form:input path="menuPrice"/><br>
 	<label>종류</label>
-	<input type="text" name="ihb"/><br>
+	<select name="ihb">
+		<option value="">선택하세요</option>
+		<option>Ice</option>
+		<option>Hot</option>
+		<option>Bakery</option>
+	</select><br>
+	<label>카테고리</label>
+	<form:select path="categoryId">
+		<form:options
+			items="${categoryProvider}"
+			itemLabel="categoryName"
+			itemValue="cid"/>
+	</form:select>
 	<label>사진</label>
-	<input type="file" name="report" /><br/>
+	<form:input path="files" type="file"/><br/>
 	<input type="submit" value="go!!!!"/>
-</form>
+</form:form>
 
 </body>
 </html>

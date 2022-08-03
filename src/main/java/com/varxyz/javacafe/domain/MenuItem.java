@@ -3,6 +3,8 @@ package com.varxyz.javacafe.domain;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,11 +21,13 @@ import lombok.Setter;
 @Setter
 public class MenuItem {
 	private long mId;
-	private long scFk;
+	private long lcFk;
 	private LargeCategory largeCategory;
+	private String categoryName;
 	private String menuItemName;
 	private int menuPrice;
 	private Image image;
+	private MultipartFile report; 
 	//ice or hot or bakery 
 	private char ihb;
 	private char outOfStock;

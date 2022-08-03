@@ -1,4 +1,4 @@
-package com.varxyz.javacafe.controller;
+package com.varxyz.javacafe.controller.adminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

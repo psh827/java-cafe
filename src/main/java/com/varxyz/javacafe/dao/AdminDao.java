@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import com.varxyz.javacafe.domain.Image;
 import com.varxyz.javacafe.domain.LargeCategory;
 import com.varxyz.javacafe.domain.MenuItem;
+import com.varxyz.javacafe.provider.CategoryProvider;
 
 public class AdminDao {
 
@@ -81,9 +82,16 @@ public class AdminDao {
 		});
 	}
 
-	public boolean changeDetail(int changePrice, char outOfStock) {
-		String sql = "UPDATE MenuItem SET menuPrice = ?, outOfStock=? WHERE"
-		return false;
+	public List<CategoryProvider> getCategory(){
+		String sql = "SELECT * FROM LargeCategory";
+		return jdbcTemplate.query(sql, new RowMapper<CategoryProvider>() {
+
+			@Override
+			public CategoryProvider mapRow(ResultSet rs, int rowNum) throws SQLException {
+				CategoryProvider cp = new CategoryProvider(rs.getLong("lcId"), rs.getString("largeCategoryName"));
+				return cp;
+			}
+		});
 	}
 
 }

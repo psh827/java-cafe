@@ -1,0 +1,32 @@
+package com.varxyz.javacafe.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.varxyz.javacafe.dao.KioskDao;
+import com.varxyz.javacafe.domain.LargeCategory;
+import com.varxyz.javacafe.domain.MenuItem;
+
+public class KioskServiceImpl implements KioskService{
+	
+	@Autowired
+	KioskDao kioskDao;
+	
+	@Override
+	public List<LargeCategory> getCategoryToKiosk() {
+		return kioskDao.getCategoryToKiosk();
+	}
+
+	@Override
+	public List<MenuItem> getAllMenuToKiosk() {
+		return kioskDao.getAllMenuToKiosk();
+	}
+
+	@Override
+	public MenuItem SelectMenu() {
+		return null;
+	}
+
+
+}

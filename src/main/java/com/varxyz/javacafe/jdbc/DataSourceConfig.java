@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.varxyz.javacafe.dao.AdminDao;
+import com.varxyz.javacafe.dao.KioskDao;
 import com.varxyz.javacafe.service.AdminServiceImpl;
+import com.varxyz.javacafe.service.KioskServiceImpl;
 
 
 
@@ -39,6 +41,16 @@ public class DataSourceConfig {
 	@Bean
 	public AdminServiceImpl adminService() {
 		return new AdminServiceImpl();
+	}
+	
+	@Bean
+	public KioskDao kioskDao() {
+		return new KioskDao(dataSource());
+	}
+	
+	@Bean
+	public KioskServiceImpl kioskService() {
+		return new KioskServiceImpl();
 	}
 	
 //	@Bean
