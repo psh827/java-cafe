@@ -19,8 +19,8 @@ public class KioskServiceImpl implements KioskService{
 	}
 
 	@Override
-	public List<MenuItem> getAllMenuToKiosk() {
-		return kioskDao.getAllMenuToKiosk();
+	public List<MenuItem> getAllMenuToKiosk(long lcFk) {
+		return kioskDao.getAllMenuToKiosk(lcFk);
 	}
 
 	@Override

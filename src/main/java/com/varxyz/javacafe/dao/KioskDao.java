@@ -2,7 +2,6 @@ package com.varxyz.javacafe.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -35,14 +34,31 @@ public class KioskDao {
 		});
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	
-	public List<HashMap<LargeCategory, List<MenuItem>>> getAllMenuToKiosk(){
-		String sql = "SELECT m.lcFk, m.menuItemName, m.menuPrice, m.ihb, i.imgUrl, i.imgName, l.lcId, l.largeCategoryname"
+	public List<MenuItem> getAllMenuToKiosk(long lcFk){
+		String sql = "SELECT m.lcFk, m.menuItemName, m.menuPrice, m.ihb, i.imgUrl, i.imgName, l.lcId, l.largeCategoryName"
 				+ " FROM MenuItem m INNER JOIN Image i ON m.mId = i.menuFk"
 				+ " INNER JOIN LargeCategory l ON m.lcFk = l.lcId WHERE m.lcFk=?";
 		
-		List<MenuItem>  
-		
+		return jdbcTemplate.query(sql, new RowMapper<MenuItem>() {
+
+			@Override
+			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MenuItem menuItem = new MenuItem();
+				menuItem.setLcFk(rs.getLong("lcFk"));
+				menuItem.setMenuItemName(rs.getString("menuItemName"));
+				menuItem.setMenuPrice(rs.getInt("menuPrice"));
+				menuItem.setIhb(rs.getString("ihb").charAt(0));
+				menuItem.setImage(new Image(rs.getString("imgUrl"), rs.getString("imgName")));
+				menuItem.setLargeCategory(new LargeCategory(rs.getString("largeCategoryName")));
+				
+				return menuItem;
+			}
+		}, lcFk);
 		
 	}
 }

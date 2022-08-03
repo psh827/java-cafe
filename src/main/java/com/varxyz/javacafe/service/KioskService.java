@@ -7,6 +7,6 @@ import com.varxyz.javacafe.domain.MenuItem;
 
 public interface KioskService {
 	List<LargeCategory> getCategoryToKiosk();
-	List<MenuItem> getAllMenuToKiosk();
+	List<MenuItem> getAllMenuToKiosk(long lcFk);
 	MenuItem SelectMenu();
 }

@@ -31,7 +31,7 @@ public class AdminDao {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		PreparedStatementCreator creator = (connection) -> {
 			PreparedStatement pstmt = connection.prepareStatement(sql, new String[] {"mId"});
-			pstmt.setLong(1, 1001);
+			pstmt.setLong(1, menuItem.getLargeCategory().getLcId());
 			pstmt.setString(2, menuItem.getMenuItemName());
 			pstmt.setInt(3, menuItem.getMenuPrice());
 			pstmt.setNString(4, String.valueOf(menuItem.getIhb()));

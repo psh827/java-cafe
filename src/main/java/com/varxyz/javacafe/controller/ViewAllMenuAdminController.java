@@ -1,4 +1,4 @@
-package com.varxyz.javacafe.controller.adminController;
+package com.varxyz.javacafe.controller;
 
 import java.util.List;
 

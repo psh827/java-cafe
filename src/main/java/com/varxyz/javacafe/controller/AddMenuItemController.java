@@ -1,12 +1,9 @@
-package com.varxyz.javacafe.controller.adminController;
+package com.varxyz.javacafe.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,14 +43,15 @@ public class AddMenuItemController {
 	@PostMapping
 	public String addMenuItem(MenuItemCommand menuItemCommand, @RequestParam("files") MultipartFile file, Model model) throws IOException {    //command객체가 아닌 request로 submit한 값 받아오기     //studentNumber - submissionForm의 속성 name 
 		//커맨드로 만들기
-		
+		System.out.println(menuItemCommand.getCategoryId());
 		MenuItem menuitem = new MenuItem();
 		menuitem.setMenuItemName(menuItemCommand.getMenuItemName());
 		menuitem.setMenuPrice(menuItemCommand.getMenuPrice());
+		menuitem.setIhb(menuItemCommand.getIhb().charAt(0));
 		menuitem.setLargeCategory(new LargeCategory(menuItemCommand.getCategoryId()));
 		
 		System.out.println(menuItemCommand.getMenuItemName());
-		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
         //파일명
         String originalFile = file.getOriginalFilename();
         System.out.println(originalFile);
