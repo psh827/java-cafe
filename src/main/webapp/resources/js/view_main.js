@@ -10,7 +10,7 @@ $('.category_name').on('click', function(){
 	        $.ajax({
 	            url: "requestObject",
 	            type: "POST",
-	            contentType: "application/json; charset=euc-kr",
+	            contentType: "application/json; charset=utf-8",
 	            dataType: "text",
 	            data: JSON.stringify({
 				'categoryId': categoryId
@@ -20,9 +20,10 @@ $('.category_name').on('click', function(){
 	            console.log(JSON.parse(data))
 				$.each(JSON.parse(data), function(index, el){
 					console.log(el.menuid)
-					html = '<li class="menuItem"><a class="modal-btn" onclick="test(event)" data-toggle="modal" data-target="#exampleModal" >'
+					html = '<li class="menuItem"><a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >'
 					html += "<img src=/java-cafe/resources/menuImg/" + el.image.imgName + ">"
-					html += "<p>" + el.menuItemName + "</p><p>" + el.description + "</p><p>" + el.ihb +"</p></a><li>"
+					html += "<p>" + el.menuItemName + "</p><p>" + el.description + "</p><p>" + el.ihb +"</p>"
+					html += "<span hidden>" + el.menuid + "</span></a><li>"
 					$(".menuItem_ul").append(html)
 				})	
 	          },
@@ -33,55 +34,52 @@ $('.category_name').on('click', function(){
 	}
 });
 
+$(document).on('click', '.modal-btn', function() {
+	console.log($(this))
+	let imgName = $(this).find('img').attr('src').split('/')[4]
+	console.log(imgName)
+	$(".modal-body").empty();
+	$.ajax({
+	            url: "requestForModal",
+	            type: "POST",
+	            contentType: "application/json; charset=utf-8",
+	            dataType: "text",
+	            data: JSON.stringify({
+				'imgName': imgName
+				}),
+	           success: function(data){
+				
+	            console.log(JSON.parse(data))
+	            var data = JSON.parse(data)
+		        var html = '<form name="form" class="modal-form"><img src=/java-cafe/resources/menuImg/' + data.image.imgName + '>'
+				html += '<input type="hidden" name="imgName" value="' + data.image.imgName + '">'
+				html += '<div class="text-area"><span class="menu_name">'+ data.menuItemName+'</span>'
+				html += '<input type="hidden" name="menuItemName" value="' + data.menuItemName + '">'
+				html += '<span class="menu_price">' + data.menuPrice + '원</span>'
+				html += '<input type="hidden" name="menuPrice" value="' + data.menuPrice + '">'
+				html += '<span class="menu_ihb">' + data.ihb + '</span>'
+				html += '<input type="hidden" name="ihb" value="' + data.ihb + '">'
+				html += '<input type="number" class="numberInput" name="buyCount" value="1" />'
+				html += '<div class="text-area_btngrp"><button type="submit" formaction="main" formmethod="post">카트담기</button>'
+				html += '<button type="submit" formaction="buyMenu" formmethod="post">바로구입</button></div></div></form>'
+				$(".modal-body").append(html)
+				
+	          },
+	          error: function(){
+	              alert("simpleWithObject err");
+	          }
+	      });
+})
 
-function test(event){
-	console.log(event.path[2])
-	let info = event.path[2]
-	let modalMenuName = info.firstChild.firstChild.getAttribute("src").split("/")[4]
-	console.log(modalMenuName)
-	var reqJson = new Object();
-	reqJson.imgName = modalMenuName;
-	httpRequest = new XMLHttpRequest();
-	 httpRequest.onreadystatechange = () => {
-	    	/* readyState가 Done이고 응답 값이 200일 때, 받아온 response로 name과 age를 그려줌 */
-		    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-			      if (httpRequest.status === 200) {
-			    	var result = httpRequest.response;
-			    	console.log(result)
-			    	var modalbody = document.querySelector(".modal-body")
-					removeAllchild(modalbody)
-			    	let img = document.createElement('img')
-			    	img.setAttribute('src','/java-cafe/resources/menuImg/' + result.image.imgName )
-			    	modalbody.appendChild(img)
-			    	let textdiv = document.createElement("div")
-			    	textdiv.setAttribute('class', 'text-area')
-			    	modalbody.appendChild(textdiv)
-			    	let menuName = document.createElement("span")
-			    	menuName.innerText = result.menuItemName
-			    	textdiv.appendChild(menuName)
-			    	let menuPrice = document.createElement("span")
-			    	menuPrice.innerText = result.menuPrice
-			    	textdiv.appendChild(menuPrice)
-			    	let menuihb = document.createElement("span")
-			    	menuihb.innerText = result.ihb
-			    	textdiv.appendChild(menuihb)
-			    	
-			      } else {
-			        alert('request에 뭔가 문제가 있어요.');
-			      }
-			}
-	    };
-	     httpRequest.open('POST', '/java-cafe/kiosk/requestForModal', true);
-	    /* Response Type을 Json으로 사전 정의 */
-	    httpRequest.responseType = "json";
-	    /* 요청 Header에 컨텐츠 타입은 Json으로 사전 정의 */
-	    httpRequest.setRequestHeader('Content-Type', 'application/json');
-	    /* 정의된 서버에 Json 형식의 요청 Data를 포함하여 요청을 전송 */
-	    httpRequest.send(JSON.stringify(reqJson));
-}
+window.onload = function(){
+	var total = $(".total_price")
+	var sum = 0
+	$(".cart_menuPrice").each(function(index, el){
+		let money = $(el).text().split("원")[0]
+		console.log(money)
+		sum += Number(money)
+	})
+	total.text(sum + "원")
+	
+};
 
-function removeAllchild(div) {
-    while (div.hasChildNodes()) {
-        div.removeChild(div.firstChild);
-    }
-}

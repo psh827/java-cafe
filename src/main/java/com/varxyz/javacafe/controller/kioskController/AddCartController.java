@@ -39,13 +39,5 @@ public class AddCartController {
 		return "kiosk/add_cart";
 	}
 	
-	@PostMapping("/kiosk/incart")
-	@ResponseBody
-	public String inCart(Cart cart, Model model, HttpSession session) {
-		int result = cartService.addCart(cart);
-		
-		return result + "";
-		
-		
-	}
+	
 }

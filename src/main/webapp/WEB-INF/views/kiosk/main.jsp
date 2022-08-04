@@ -20,28 +20,47 @@
 		</c:forEach>
 	</div>
 	<ul class="menuItem_ul">
+		<c:forEach var="menu" items="${menuList}">
+			<li class="menuItem">
+				<a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >
+					<img src="/java-cafe/resources/menuImg/${menu.image.imgName}">
+					<p>${menu.menuItemName }</p>
+					<p>${menu.menuPrice }원</p>
+					<p>${menu.ihb }</p>
+					<span hidden>${menu.menuid }</span>
+				</a>
+			</li>
+		</c:forEach>
 	</ul>
 	
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">수량 선택</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>
 	<div class="cart-container">
-	
+		<c:forEach var="cart" items="${cartList}">
+			<div class="cart_content">
+				<img src="/java-cafe/resources/menuImg/${cart.imgName}" style="width: 150px; height: 150px;">
+				<div class="cart_content_text">
+					<span class="cart_menuName">${cart.menuItemName}</span>
+					<span class="cart_menuPrice">${cart.menuPrice * cart.buyCount}원</span>
+					<span class="cart_menuihb">${cart.ihb}</span>
+					<span class="cart_buyCount">${cart.buyCount}개</span>
+				</div>
+			</div>
+		</c:forEach>
+		<span>총액 : </span>
+		<span class="total_price"></span>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/view_main.js'/>"></script>
