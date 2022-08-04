@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +42,15 @@ public class KioskMainController {
 			HttpServletRequest request) throws UnsupportedEncodingException{
 		List<MenuItem> menuList = kioskService.getAllMenuToKiosk(menuItemCommand.getCategoryId());
 		return menuList;
+	}
+	
+//	@RequestMapping(value = "/kiosk/requestForModal", method = { RequestMethod.POST })
+	@PostMapping("/kiosk/requestForModal")
+	@ResponseBody
+	public MenuItem getMenuItemForModal(@RequestBody MenuItemCommand menuItemCommand,
+			HttpServletRequest request) throws UnsupportedEncodingException{
+		MenuItem menuItem = kioskService.getMenuItemBymenuName(menuItemCommand.getImgName());
+		return menuItem;
 	}
 	
 }

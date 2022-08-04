@@ -15,6 +15,7 @@ public class MenuItemCommand {
 	private String description;
 	private int menuPrice;
 	private MultipartFile files; 
+	private String imgName;
 	//ice or hot or bakery 
 	private String ihb;
 }
