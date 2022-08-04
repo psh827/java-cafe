@@ -26,16 +26,16 @@ public class AdminDao {
 	}
 
 	public long addProduct(MenuItem menuItem) {
-		String sql = "INSERT INTO MenuItem (lcFk, menuItemName, menuPrice, ihb)"
-				+ " VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO MenuItem (lcFk, menuItemName, menuPrice, ihb, description)"
+				+ " VALUES(?, ?, ?, ?, ?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		PreparedStatementCreator creator = (connection) -> {
 			PreparedStatement pstmt = connection.prepareStatement(sql, new String[] {"mId"});
 			pstmt.setLong(1, menuItem.getLargeCategory().getLcId());
 			pstmt.setString(2, menuItem.getMenuItemName());
 			pstmt.setInt(3, menuItem.getMenuPrice());
-			pstmt.setNString(4, String.valueOf(menuItem.getIhb()));
-			
+			pstmt.setString(4, String.valueOf(menuItem.getIhb()));
+			pstmt.setString(5, String.valueOf(menuItem.getDescription()));
 			return pstmt;
 		};
 		jdbcTemplate.update(creator, keyHolder);
@@ -74,7 +74,7 @@ public class AdminDao {
 			@Override
 			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MenuItem menuItem = new MenuItem(rs.getString("menuItemName"), rs.getInt("menuPrice"),
-						rs.getString("ihb").charAt(0), rs.getString("outOfStock").charAt(0), new LargeCategory(rs.getString("largeCategoryName")),
+						rs.getString("ihb"), rs.getString("outOfStock").charAt(0), new LargeCategory(rs.getString("largeCategoryName")),
 								new Image(rs.getString("imgUrl"), rs.getString("imgName")), rs.getTimestamp("regDate"));
 				return menuItem;
 			}

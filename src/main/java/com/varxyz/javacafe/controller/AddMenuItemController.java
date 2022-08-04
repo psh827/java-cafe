@@ -47,11 +47,13 @@ public class AddMenuItemController {
 		MenuItem menuitem = new MenuItem();
 		menuitem.setMenuItemName(menuItemCommand.getMenuItemName());
 		menuitem.setMenuPrice(menuItemCommand.getMenuPrice());
-		menuitem.setIhb(menuItemCommand.getIhb().charAt(0));
+		menuitem.setIhb(menuItemCommand.getIhb());
 		menuitem.setLargeCategory(new LargeCategory(menuItemCommand.getCategoryId()));
+		menuitem.setDescription(menuItemCommand.getDescription());
 		
 		System.out.println(menuItemCommand.getMenuItemName());
-		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+//		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
         //파일명
         String originalFile = file.getOriginalFilename();
         System.out.println(originalFile);

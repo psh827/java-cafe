@@ -9,8 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MenuItemCommand {
+	private long mId;
 	private long categoryId;
 	private String menuItemName;
+	private String description;
 	private int menuPrice;
 	private MultipartFile files; 
 	//ice or hot or bakery 

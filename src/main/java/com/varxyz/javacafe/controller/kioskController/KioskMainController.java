@@ -1,18 +1,18 @@
 package com.varxyz.javacafe.controller.kioskController;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.varxyz.javacafe.command.MenuItemCommand;
@@ -31,15 +31,14 @@ public class KioskMainController {
 		List<LargeCategory> categoryList = kioskService.getCategoryToKiosk();
 		
 		request.setAttribute("categoryList", categoryList);
-//		request.setAttribute("menuList", menuList);
 		
 		return "kiosk/main";
 	}
 	
 	@RequestMapping(value = "/kiosk/requestObject", method = { RequestMethod.POST })
 	@ResponseBody
-	public List<MenuItem> getMenuItem(@RequestBody MenuItemCommand menuItemCommand){
-		System.out.println(menuItemCommand.getCategoryId());
+	public List<MenuItem> getMenuItem(@RequestBody MenuItemCommand menuItemCommand,
+			HttpServletRequest request) throws UnsupportedEncodingException{
 		List<MenuItem> menuList = kioskService.getAllMenuToKiosk(menuItemCommand.getCategoryId());
 		return menuList;
 	}

@@ -40,7 +40,8 @@ public class KioskDao {
 	 */
 	
 	public List<MenuItem> getAllMenuToKiosk(long lcFk){
-		String sql = "SELECT m.lcFk, m.menuItemName, m.menuPrice, m.ihb, i.imgUrl, i.imgName, l.lcId, l.largeCategoryName"
+		String sql = "SELECT m.mId, m.lcFk, m.menuItemName, m.menuPrice, m.ihb, m.description,"
+				+ " i.imgUrl, i.imgName, l.lcId, l.largeCategoryName"
 				+ " FROM MenuItem m INNER JOIN Image i ON m.mId = i.menuFk"
 				+ " INNER JOIN LargeCategory l ON m.lcFk = l.lcId WHERE m.lcFk=?";
 		
@@ -49,10 +50,12 @@ public class KioskDao {
 			@Override
 			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MenuItem menuItem = new MenuItem();
+				menuItem.setMenuid(rs.getLong("mId"));
 				menuItem.setLcFk(rs.getLong("lcFk"));
 				menuItem.setMenuItemName(rs.getString("menuItemName"));
 				menuItem.setMenuPrice(rs.getInt("menuPrice"));
-				menuItem.setIhb(rs.getString("ihb").charAt(0));
+				menuItem.setIhb(rs.getString("ihb"));
+				menuItem.setDescription(rs.getString("description"));
 				menuItem.setImage(new Image(rs.getString("imgUrl"), rs.getString("imgName")));
 				menuItem.setLargeCategory(new LargeCategory(rs.getString("largeCategoryName")));
 				
@@ -60,5 +63,27 @@ public class KioskDao {
 			}
 		}, lcFk);
 		
+	}
+	
+	public MenuItem getMenuItemByImgName(String imgName) {
+		String sql = "SELECT m.mId, m.lcFk, m.menuItemName, m.menuPrice, m.ihb, m.description, i.imgUrl, i.imgName FROM MenuItem m"
+				+ " INNER JOIN Image i ON m.mId = i.menuFk WHERE i.imgName=?";
+		
+		return jdbcTemplate.queryForObject(sql, new RowMapper<MenuItem>() {
+
+			@Override
+			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MenuItem menuItem = new MenuItem();
+				menuItem.setMenuid(rs.getLong("mId"));
+				menuItem.setLcFk(rs.getLong("lcFk"));
+				menuItem.setMenuItemName(rs.getString("menuItemName"));
+				menuItem.setMenuPrice(rs.getInt("menuPrice"));
+				menuItem.setIhb(rs.getString("ihb"));
+				menuItem.setDescription(rs.getString("description"));
+				menuItem.setImage(new Image(rs.getString("imgUrl"), rs.getString("imgName")));
+				return menuItem;
+			}
+			
+		}, imgName);
 	}
 }

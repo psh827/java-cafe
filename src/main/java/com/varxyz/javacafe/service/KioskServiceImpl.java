@@ -28,5 +28,10 @@ public class KioskServiceImpl implements KioskService{
 		return null;
 	}
 
+	@Override
+	public MenuItem getMenuItemByImgName(String imgName) {
+		return kioskDao.getMenuItemByImgName(imgName);
+	}
+
 
 }

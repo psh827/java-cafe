@@ -9,4 +9,5 @@ public interface KioskService {
 	List<LargeCategory> getCategoryToKiosk();
 	List<MenuItem> getAllMenuToKiosk(long lcFk);
 	MenuItem SelectMenu();
+	MenuItem getMenuItemByImgName(String imgName);
 }

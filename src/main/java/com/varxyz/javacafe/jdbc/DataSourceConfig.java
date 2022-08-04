@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.varxyz.javacafe.dao.AdminDao;
+import com.varxyz.javacafe.dao.CartDao;
 import com.varxyz.javacafe.dao.KioskDao;
 import com.varxyz.javacafe.service.AdminServiceImpl;
+import com.varxyz.javacafe.service.CartServiceImpl;
 import com.varxyz.javacafe.service.KioskServiceImpl;
 
 
@@ -53,9 +55,14 @@ public class DataSourceConfig {
 		return new KioskServiceImpl();
 	}
 	
-//	@Bean
-//	public AccountServiceImpl accountService() {
-//		return new AccountServiceImpl();
-//	}
+	@Bean
+	public CartServiceImpl cartService() {
+		return new CartServiceImpl();
+	}
+	
+	@Bean
+	public CartDao cartDao() {
+		return new CartDao(dataSource());
+	}
 	
 }

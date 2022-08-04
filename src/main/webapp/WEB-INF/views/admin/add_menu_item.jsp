@@ -26,7 +26,9 @@
 			items="${categoryProvider}"
 			itemLabel="categoryName"
 			itemValue="cid"/>
-	</form:select>
+	</form:select><br>
+	<label>설명</label>
+	<form:textarea path="description"/>
 	<label>사진</label>
 	<form:input path="files" type="file"/><br/>
 	<input type="submit" value="go!!!!"/>

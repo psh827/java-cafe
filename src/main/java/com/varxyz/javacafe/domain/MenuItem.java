@@ -20,16 +20,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MenuItem {
-	private long mId;
+	private long menuid;
 	private long lcFk;
 	private LargeCategory largeCategory;
 	private String categoryName;
 	private String menuItemName;
 	private int menuPrice;
+	private String description;
 	private Image image;
 	private MultipartFile report; 
 	//ice or hot or bakery 
-	private char ihb;
+	private String ihb;
 	private char outOfStock;
 	private Date regDate;
 	
@@ -37,7 +38,7 @@ public class MenuItem {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MenuItem(String menuItemName, int menuPrice, char ihb, char outOfStock,
+	public MenuItem(String menuItemName, int menuPrice, String ihb, char outOfStock,
 			LargeCategory largeCategory, Image image, Date regDate) {
 		this.largeCategory = largeCategory;
 		this.menuItemName = menuItemName;
