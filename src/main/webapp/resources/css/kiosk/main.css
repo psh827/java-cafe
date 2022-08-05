@@ -1,4 +1,126 @@
 @charset "UTF-8";
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+* {
+	font-family: 'Noto Sans KR', sans-serif;	
+}
+.category_container {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+img {
+	width: 300px;
+	height: 300px;
+}
+.category_name {
+	width: 200px;
+    height: 50px;
+    font-size: 20px;
+    margin: 30px 50px;
+    background-color: gray;
+    border-radius: 10px;
+    border: 1px solid #F2DF3A;
+    color : white;
+}
+
+.menuItem_ul {
+	display: flex;
+    min-height: 800px;
+    width: 80%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.menu_text {
+	width : 200px;
+	margin : 0 auto;
+	text-align: center;
+    color: black;
+    font-size: 20px;
+}
+
+.default_button {
+	width: 80px;
+    height: 40px;
+    font-size: 15px;
+    margin: 30px 50px;
+    background-color: gray;
+    border-radius: 10px;
+    border: 1px solid #F2DF3A;
+    color : white;
+}
+
+.menu_description {
+	width : 200px;
+	margin : 0 auto;
+	text-align: center;
+    color: black;
+    font-size: 15px;
+}
+
+.cart-container {
+	background-color : rgba(0, 0, 0, 0.1);
+	display: flex;
+    width: 80%;
+    min-height: 262px;
+    margin: 50px auto;
+    border-top: 1px solid black;
+    padding: 30px;
+	position: relative;	
+}
+
+.cart-container:after {
+	content: '';
+    position: absolute;
+    height: 100%;
+    top: 0;
+    width: 2px;
+    background: black;
+    right: 200px;
+}
+
+.cart_content{
+	margin-right: 20px;
+	position: relative;
+}
+
+.delete_content{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	cursor: pointer;
+}
+
+.total_text{
+	position: absolute;
+    right: 50px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total_text > span {
+	display: inline-block;
+	height: 30%;
+}
+.cart_content_text{
+	display: flex;
+	flex-direction: column;
+}
+
+.cart_title {
+	width: 200px;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 20px;
+}
+
+
+
 .category_container {
 	display: flex;
 }
@@ -78,4 +200,9 @@ img {
 	position: absolute;
 	margin-top: 0;
 	right: 15px;
+}
+
+li.menuItem {
+    border: 1px solid rgba(0,0,0, 0.3);
+    padding-bottom: 10px;
 }

@@ -11,7 +11,12 @@ public class CartServiceImpl implements CartService{
 	
 	@Autowired
 	CartDao cartDao;
-	
+	/**
+	 * 1 : 성공 (새로운 아이템)
+	 * 2 : 실패 (새로운 아이템 실패)
+	 * 3 : 실패 (기존아이템 실패)
+	 * 4 : 성공 (기존아이템에 수량 증가)
+	 */
 	@Override
 	public int addCart(Cart cart) {
 		
@@ -35,6 +40,10 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int updateCart(Cart cart) {
 		return cartDao.updateCart(cart);
+	}
+
+	public boolean deleteThis(String imgName) {
+		return cartDao.deleteThis(imgName);
 	}
 
 }

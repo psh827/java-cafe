@@ -52,8 +52,8 @@ public class AddMenuItemController {
 		menuitem.setDescription(menuItemCommand.getDescription());
 		
 		System.out.println(menuItemCommand.getMenuItemName());
-		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
-//		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+//		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
         //파일명
         String originalFile = file.getOriginalFilename();
         System.out.println(originalFile);

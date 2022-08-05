@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="<c:url value='/resources/css/default.css'/>" rel="stylesheet" />
 <link href="<c:url value='/resources/css/kiosk/main.css'/>" rel="stylesheet" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="category_container">
@@ -24,9 +24,10 @@
 			<li class="menuItem">
 				<a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >
 					<img src="/java-cafe/resources/menuImg/${menu.image.imgName}">
-					<p>${menu.menuItemName }</p>
-					<p>${menu.menuPrice }원</p>
-					<p>${menu.ihb }</p>
+					<p class="menu_text">${menu.menuItemName }</p>
+					<p class="menu_text">${menu.description}</p>
+					<p class="menu_text">${menu.menuPrice }원</p>
+					<p class="menu_text">${menu.ihb }</p>
 					<span hidden>${menu.menuid }</span>
 				</a>
 			</li>
@@ -47,9 +48,11 @@
 	    </div>
 	  </div>
 	</div>
+		<form>
 	<div class="cart-container">
 		<c:forEach var="cart" items="${cartList}">
 			<div class="cart_content">
+				<span class="delete_content">X</span>
 				<img src="/java-cafe/resources/menuImg/${cart.imgName}" style="width: 150px; height: 150px;">
 				<div class="cart_content_text">
 					<span class="cart_menuName">${cart.menuItemName}</span>
@@ -59,9 +62,17 @@
 				</div>
 			</div>
 		</c:forEach>
-		<span>총액 : </span>
-		<span class="total_price"></span>
+		<div class="total_text">
+			<span>총액</span>
+			<span class="total_price"></span>
+			<input hidden class="totalInput" name="totalPrice" value="">
+			<button type="button" onclick="location.href='<c:url value="/kiosk/buyPage" />' ">결제하기</button>
+		</div>
 	</div>
+		</form>
+	
+	
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/view_main.js'/>"></script>
 	<script>

@@ -17,9 +17,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TransactionHistory {
+	private long transactionId;
 	private Date regDate;
 	private String menuItemName;
 	private int salesVolume;
-	private int total;
+	private int totalPrice;
 	private int monthTotal;
 }

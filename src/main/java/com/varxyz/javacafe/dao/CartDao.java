@@ -35,6 +35,11 @@ public class CartDao {
 		
 		
 	}
+	/**
+	 * 
+	 * @param cart
+	 * @return
+	 */
 	
 	public Cart checkCart(Cart cart) {
 		try {
@@ -60,6 +65,12 @@ public class CartDao {
 		}
 	}
 	
+	/**
+	 * 아아 4개 
+	 * 아아 2개 추가했어
+	 * @param cart
+	 * @return
+	 */
 	public int updateCart(Cart cart) {
 		String sql = "UPDATE Cart SET buyCount = buyCount + ? WHERE menuItemName=?";
 		
@@ -93,6 +104,20 @@ public class CartDao {
 			});
 		} catch (EmptyResultDataAccessException e) {
 			return null;
+		}
+	}
+
+	public boolean deleteThis(String imgName) {
+		String sql = "DELETE FROM Cart WHERE imgName = ?";
+		boolean result = false;
+		try {
+			jdbcTemplate.update(sql, imgName);
+			result = true;
+			System.out.println("삭제완료");
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
 		}
 	}
 

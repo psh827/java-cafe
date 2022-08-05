@@ -22,7 +22,7 @@ $('.category_name').on('click', function(){
 					console.log(el.menuid)
 					html = '<li class="menuItem"><a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >'
 					html += "<img src=/java-cafe/resources/menuImg/" + el.image.imgName + ">"
-					html += "<p>" + el.menuItemName + "</p><p>" + el.description + "</p><p>" + el.ihb +"</p>"
+					html += "<p class='menu_text'>" + el.menuItemName + "</p><p class='menu_text'>" + el.description + "</p><p class='menu_text'>" + el.menuPrice +"원</p><p class='menu_text'>" + el.ihb +"</p>"
 					html += "<span hidden>" + el.menuid + "</span></a><li>"
 					$(".menuItem_ul").append(html)
 				})	
@@ -60,8 +60,8 @@ $(document).on('click', '.modal-btn', function() {
 				html += '<span class="menu_ihb">' + data.ihb + '</span>'
 				html += '<input type="hidden" name="ihb" value="' + data.ihb + '">'
 				html += '<input type="number" class="numberInput" name="buyCount" value="1" />'
-				html += '<div class="text-area_btngrp"><button type="submit" formaction="main" formmethod="post">카트담기</button>'
-				html += '<button type="submit" formaction="buyMenu" formmethod="post">바로구입</button></div></div></form>'
+				html += '<div class="text-area_btngrp"><button type="button" data-dismiss="modal" aria-label="Close">이전으로</button>'
+				html += '<button type="submit" formaction="main" formmethod="post">카트담기</button></div></div></form>'
 				$(".modal-body").append(html)
 				
 	          },
@@ -72,8 +72,8 @@ $(document).on('click', '.modal-btn', function() {
 })
 
 window.onload = function(){
-	var total = $(".total_price")
 	var sum = 0
+	var total = $(".total_price")
 	$(".cart_menuPrice").each(function(index, el){
 		let money = $(el).text().split("원")[0]
 		console.log(money)
@@ -82,4 +82,39 @@ window.onload = function(){
 	total.text(sum + "원")
 	
 };
+
+$(".delete_content").on("click", function(){
+	var sum = 0
+	let imgName = $(this).next().attr("src").split("/")[4]
+	console.log(imgName)
+	$(this).parents(".cart_content").remove()
+	var total = $(".total_price")
+	$(".cart_menuPrice").each(function(index, el){
+		let money = $(el).text().split("원")[0]
+		console.log(money)
+		sum += Number(money)
+	})
+	total.text(sum + "원")
+	$.ajax({
+            url: "requestDelete",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            data: JSON.stringify({
+			'imgName': imgName
+			}),
+           success: function(data){
+            console.log(JSON.parse(data))
+          },
+          error: function(){
+              alert("simpleWithObject err");
+          }
+    });
+	$(this).parents(".cart_content").remove()
+	
+	
+	
+});
+
+
 

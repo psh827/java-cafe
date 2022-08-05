@@ -73,8 +73,7 @@ public class KioskMainController {
 		}else {
 			request.setAttribute("msg", "오류!");
 			request.setAttribute("url", "main");
-			return "alert";
-			
+			return "alert";	
 		}		
 		
 	}
