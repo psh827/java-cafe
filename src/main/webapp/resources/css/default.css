@@ -26,10 +26,26 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background: #fffefe;
+	height: 100vh;
 }
+
+*:focus {
+	outline: none;
+}
+
 ol, ul, li {
 	list-style: none;
 }
+
+a{
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+}
+
 blockquote, q {
 	quotes: none;
 }
@@ -41,4 +57,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+.container {
+	margin-top : 60px;
 }

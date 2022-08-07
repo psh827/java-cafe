@@ -7,27 +7,34 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="<c:url value='/resources/css/default.css'/>" rel="stylesheet" />
+<link href="<c:url value='/resources/css/admin_main.css'/>" rel="stylesheet" />
 <link href="<c:url value='/resources/css/kiosk/main.css'/>" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<nav class="nav">
+ 		<jsp:include page="../incl/admin_header.jsp"/>
+	</nav>
 	<div class="category_container">
-		<c:forEach var="category" items="${categoryList}">
-			<div class="category_name_box">
-				<button type="button" id="${category.lcId}" class="category_name" value="${category.lcId}">${category.largeCategoryName}</button>
-			</div>
-		</c:forEach>
+		<div class="category_inner">
+			<c:forEach var="category" items="${categoryList}">
+				<div class="category_name_box">
+					<button type="button" id="${category.lcId}" class="category_name" value="${category.lcId}">${category.largeCategoryName}</button>
+				</div>
+			</c:forEach>
+		</div>
 	</div>
 	<ul class="menuItem_ul">
 		<c:forEach var="menu" items="${menuList}">
 			<li class="menuItem">
 				<a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >
 					<img src="/java-cafe/resources/menuImg/${menu.image.imgName}">
-					<p class="menu_text">${menu.menuItemName }</p>
-					<p class="menu_text">${menu.description}</p>
-					<p class="menu_text">${menu.menuPrice }원</p>
-					<p class="menu_text">${menu.ihb }</p>
+					<div class="menu_text_box">
+						<p class="menu_text">${menu.menuItemName }</p>
+						<p class="menu_text">${menu.menuPrice }원</p>
+						<p class="menu_text">${menu.ihb }</p>
+					</div>
 					<span hidden>${menu.menuid }</span>
 				</a>
 			</li>

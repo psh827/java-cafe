@@ -46,4 +46,9 @@ public class CartServiceImpl implements CartService{
 		return cartDao.deleteThis(imgName);
 	}
 
+	@Override
+	public int deleteAll() {
+		return cartDao.deleteAll();		
+	}
+
 }

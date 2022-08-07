@@ -9,4 +9,5 @@ public interface CartService {
 	Cart checkCart(Cart cart);
 	List<Cart> getAllCart();
 	int updateCart(Cart cart);
+	int deleteAll();
 }

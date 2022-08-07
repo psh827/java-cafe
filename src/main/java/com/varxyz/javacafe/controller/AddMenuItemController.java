@@ -41,22 +41,38 @@ public class AddMenuItemController {
 	
 	
 	@PostMapping
-	public String addMenuItem(MenuItemCommand menuItemCommand, @RequestParam("files") MultipartFile file, Model model) throws IOException {    //command객체가 아닌 request로 submit한 값 받아오기     //studentNumber - submissionForm의 속성 name 
+	public String addMenuItem(MenuItemCommand menuItemCommand, @RequestParam("files") MultipartFile file, Model model) throws IOException {    //command객체가 아닌 request로 submit한 값 받아오기     //studentNumber - submissionForm의 속성 name
+		
+		if(menuItemCommand.getMenuItemName() == null || menuItemCommand.getMenuPrice() == 0 || 
+				menuItemCommand.getCategoryId() == 0 || file == null) {
+			model.addAttribute("msg", "입력값이 빠져있습니다.");
+			model.addAttribute("url", "add_menu_item");
+			return "alert";
+		}
+		
 		//커맨드로 만들기
-		System.out.println(menuItemCommand.getCategoryId());
 		MenuItem menuitem = new MenuItem();
+		
 		menuitem.setMenuItemName(menuItemCommand.getMenuItemName());
-		menuitem.setMenuPrice(menuItemCommand.getMenuPrice());
 		menuitem.setIhb(menuItemCommand.getIhb());
+		
+		MenuItem checkMenu = adminService.isMenuItem(menuitem);
+		
+		
+		if(checkMenu.getMenuItemName() != menuItemCommand.getMenuItemName() && checkMenu.getIhb() == menuItemCommand.getIhb()) {
+			model.addAttribute("msg", "이미 존재하는 메뉴입니다.");
+			model.addAttribute("url", "add_menu_item");
+			return "alert";
+		}
+		
+		menuitem.setMenuPrice(menuItemCommand.getMenuPrice());
 		menuitem.setLargeCategory(new LargeCategory(menuItemCommand.getCategoryId()));
 		menuitem.setDescription(menuItemCommand.getDescription());
 		
-		System.out.println(menuItemCommand.getMenuItemName());
-//		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
-		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+		String filePath = "C:\\myworkspace\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
+//		String filePath = "C:\\Park\\work\\java-cafe\\src\\main\\webapp\\resources\\menuImg\\";
         //파일명
         String originalFile = file.getOriginalFilename();
-        System.out.println(originalFile);
         //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
         String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
         //fileuploadtest.doc
@@ -82,12 +98,9 @@ public class AddMenuItemController {
         //파일 저장
         file.transferTo(files);
         
-        System.out.println(menuitem + "가 업로드한 파일은");
-        System.out.println(originalFile + "은 업로드한 파일이다.");
-        System.out.println(storedFileName + "라는 이름으로 업로드 됐다.");
-        System.out.println("파일사이즈는 " + file.getSize());
-		
-		return "admin/add_menu_item_success";
+        model.addAttribute("msg", "메뉴등록성공!");
+		model.addAttribute("url", "add_menu_item");
+		return "alert";
 		
 	}
 	

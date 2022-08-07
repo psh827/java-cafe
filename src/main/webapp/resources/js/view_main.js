@@ -22,7 +22,7 @@ $('.category_name').on('click', function(){
 					console.log(el.menuid)
 					html = '<li class="menuItem"><a class="modal-btn" data-toggle="modal" data-target="#exampleModal" >'
 					html += "<img src=/java-cafe/resources/menuImg/" + el.image.imgName + ">"
-					html += "<p class='menu_text'>" + el.menuItemName + "</p><p class='menu_text'>" + el.description + "</p><p class='menu_text'>" + el.menuPrice +"원</p><p class='menu_text'>" + el.ihb +"</p>"
+					html += "<div class='menu_text_box'><p class='menu_text'>" + el.menuItemName + "</p><p class='menu_text'>" + el.menuPrice +"원</p><p class='menu_text'>" + el.ihb +"</p></div>"
 					html += "<span hidden>" + el.menuid + "</span></a><li>"
 					$(".menuItem_ul").append(html)
 				})	
@@ -51,7 +51,7 @@ $(document).on('click', '.modal-btn', function() {
 				
 	            console.log(JSON.parse(data))
 	            var data = JSON.parse(data)
-		        var html = '<form name="form" class="modal-form"><img src=/java-cafe/resources/menuImg/' + data.image.imgName + '>'
+		        var html = '<form name="form" class="modal-form"><img class="modal-img" src=/java-cafe/resources/menuImg/' + data.image.imgName + '>'
 				html += '<input type="hidden" name="imgName" value="' + data.image.imgName + '">'
 				html += '<div class="text-area"><span class="menu_name">'+ data.menuItemName+'</span>'
 				html += '<input type="hidden" name="menuItemName" value="' + data.menuItemName + '">'
@@ -59,9 +59,9 @@ $(document).on('click', '.modal-btn', function() {
 				html += '<input type="hidden" name="menuPrice" value="' + data.menuPrice + '">'
 				html += '<span class="menu_ihb">' + data.ihb + '</span>'
 				html += '<input type="hidden" name="ihb" value="' + data.ihb + '">'
-				html += '<input type="number" class="numberInput" name="buyCount" value="1" />'
-				html += '<div class="text-area_btngrp"><button type="button" data-dismiss="modal" aria-label="Close">이전으로</button>'
-				html += '<button type="submit" formaction="main" formmethod="post">카트담기</button></div></div></form>'
+				html += '<input type="number" max="10" class="numberInput" name="buyCount" value="1" />'
+				html += '<div class="text-area_btngrp"><button class="modal-btn" type="button" data-dismiss="modal" aria-label="Close">이전으로</button>'
+				html += '<button type="submit" class="modal-btn" formaction="main" formmethod="post">카트담기</button></div></div></form>'
 				$(".modal-body").append(html)
 				
 	          },
@@ -111,9 +111,7 @@ $(".delete_content").on("click", function(){
           }
     });
 	$(this).parents(".cart_content").remove()
-	
-	
-	
+
 });
 
 

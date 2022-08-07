@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-${testCommand.name}
-${testCommand.phone}
-
+<h2>여기는 메인입니다.</h2>
+${userName}님 환영합니다.
+<a href="<c:url value='/test/logout'/>">로그아웃</a>
 </body>
 </html>

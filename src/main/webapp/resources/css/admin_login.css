@@ -1,0 +1,44 @@
+@charset "UTF-8";
+.admin_login_container {
+	display: flex;
+	
+}
+
+form {
+	height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-content: center;
+    margin-top: 300px;
+    border: 1px solid #66E9C1;
+    border-radius: 15px;
+    padding: 50px 130px 0;
+}
+
+label {
+	margin: 15px 0 5px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+input {
+	border: none;
+	border-bottom: 1px solid #6EE9C1;
+	padding: 10px;
+	text-align: center;
+}
+
+.submit {
+	width: 150px;
+    height: 35px;
+    border: none;
+    border-radius: 15px;
+    background: #6EE9C1;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    margin: 20px auto 0;
+}

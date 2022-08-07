@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class KioskMainController {
 	CartServiceImpl cartService;
 	
 	@GetMapping("/kiosk/main")
-	public String getMain(HttpServletRequest request) {
+	public String getMain(HttpServletRequest request, HttpSession session) {
 		List<LargeCategory> categoryList = kioskService.getCategoryToKiosk();
 		request.setAttribute("categoryList", categoryList);
 		
@@ -42,6 +43,7 @@ public class KioskMainController {
 		
 		List<Cart> cartList = cartService.getAllCart();
 		if(cartList.size() >= 1) {
+			session.setAttribute("sessionOn", "sessionisON");
 			request.setAttribute("cartList", cartList);
 		}
 		
@@ -67,7 +69,6 @@ public class KioskMainController {
 	@PostMapping("/kiosk/main")
 	public String inCart(Cart cart, HttpServletRequest request) {
 		int result = cartService.addCart(cart);
-		System.out.println(result);
 		if(result == 1 || result == 4) {
 			return "redirect:/kiosk/main";
 		}else {

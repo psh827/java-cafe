@@ -1,9 +1,10 @@
-package com.varxyz.javacafe.command;
+package com.varxyz.javacafe.controller.kioskController;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,11 @@ public class BuyMenuController {
 	public String buyPageForm(Model model) {
 		
 		List<Cart> cartList = cartService.getAllCart();
+		if(cartList.size() == 0) {
+			model.addAttribute("msg", "제품을 선택해주세요.");
+			model.addAttribute("url", "main");
+			return "alert";
+		}
 		model.addAttribute("cartList", cartList);
 		
 		
@@ -40,7 +46,9 @@ public class BuyMenuController {
 	}
 	
 	@PostMapping("/kiosk/buyPage")
-	public String buyPage(HttpServletRequest request) {
+	public String buyPage(HttpServletRequest request, HttpSession session) {
+		session.invalidate();
+		cartService.deleteAll();
 		return "kiosk/buy_success";
 	}
 	

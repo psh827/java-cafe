@@ -39,5 +39,20 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.getCategory();
 	}
 
+	@Override
+	public LargeCategory isCate(LargeCategory largecategory) {
+		return adminDao.isCate(largecategory);
+	}
+
+	@Override
+	public MenuItem isMenuItem(MenuItem menuitem) {
+		return adminDao.isMenuItem(menuitem);
+	}
+
+	@Override
+	public int deleteMenuByMenuItemName(long menuid) {
+		return adminDao.deleteMenuByMenuItemName(menuid);
+	}
+
 
 }

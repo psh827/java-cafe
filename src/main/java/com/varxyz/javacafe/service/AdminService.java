@@ -20,4 +20,7 @@ public interface AdminService {
 	boolean addCategory(LargeCategory largeCategory);
 	List<MenuItem> viewAllMenu();
 	List<CategoryProvider> getCategory();
+	LargeCategory isCate(LargeCategory largecategory);
+	MenuItem isMenuItem(MenuItem menuitem);
+	int deleteMenuByMenuItemName(long menuItemName);
 }

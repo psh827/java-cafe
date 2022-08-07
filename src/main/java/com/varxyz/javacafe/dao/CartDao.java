@@ -113,11 +113,20 @@ public class CartDao {
 		try {
 			jdbcTemplate.update(sql, imgName);
 			result = true;
-			System.out.println("삭제완료");
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return result;
+		}
+	}
+
+	public int deleteAll() {
+		String sql = "DELETE FROM Cart";
+		try {
+			jdbcTemplate.update(sql);
+			return 1;
+		} catch (Exception e) {
+			return 0;
 		}
 	}
 

@@ -6,12 +6,35 @@
 <head>
 <meta charset="UTF-8">
 <title>카테고리추가</title>
+<link href="<c:url value='/resources/css/default.css'/>" rel="stylesheet" />
+<link href="<c:url value='/resources/css/admin_main.css'/>" rel="stylesheet" />
+<link href="<c:url value='/resources/css/add_category.css'/>" rel="stylesheet" />
 </head>
 <body>
-<form:form method="post" modelAttribute="largeCategory">
-	<label>카테고리명</label>
-	<form:input path="largeCategoryName"/>
-	<input type="submit" value="등록"/>
-</form:form>
+<nav class="nav">
+ 	<jsp:include page="../incl/admin_header.jsp"/>
+</nav>
+<div class="add_category_container">
+	<div class="add_category_inner">
+		<form:form method="post" modelAttribute="largeCategory">
+			<label>카테고리명</label>
+			<form:input class="add_category_input" path="largeCategoryName"/>
+			<input type="submit" class="submit" value="등록"/>
+		</form:form>
+	</div>
+</div>
+<div class="category_list">
+	<table>
+		<th>no</th>
+		<th>카테고리명</th>
+		<c:forEach var="cate" items="${largeCategoryList}">
+			<tr>
+				<td>${cate.cid}</td>
+				<td>${cate.categoryName}
+			</tr>
+		</c:forEach>
+
+	</table>
+</div>
 </body>
 </html>

@@ -5,19 +5,37 @@
 <head>
 <meta charset="UTF-8">
 <title>결제</title>
+<link href="<c:url value='/resources/css/default.css'/>" rel="stylesheet" />
+<link href="<c:url value='/resources/css/admin_main.css'/>" rel="stylesheet" />
+<link href="<c:url value='/resources/css/kiosk/buyPage.css'/>" rel="stylesheet" />
 </head>
 <body>
-<ul>
-	<c:forEach var="cart" items="${cartList}">
-		<li>메뉴이름 : ${cart.menuItemName } | 수량 : ${cart.buyCount } | 종류 : ${cart.ihb} | 금액 : <span class="each_total_money">${cart.menuPrice * cart.buyCount }</span>원</li>
-	</c:forEach>
-</ul>
-총액 : 
-<span class="total_price"></span>
-<form class="totalForm">
-	<input hidden class="totalInput" name="totalPrice" type="number" value="">
-	<button class="submitBtn" type="submit" formaction="buyPage" formmethod="post">결제하기</button>
-</form>
+<nav class="nav">
+ 	<jsp:include page="../incl/admin_header.jsp"/>
+</nav>
+<div class="view_container container">
+		<table>
+			<th>제품명</th>
+			<th>수량</th>
+			<th>제품종류</th>
+			<th>금액</th>
+			<c:forEach var="cart" items="${cartList}">
+					<tr class="table_content">
+						<td>${cart.menuItemName}</td>
+						<td>${cart.buyCount}</td>
+						<td>${cart.ihb}</td>
+						<td class="each_total_money">${cart.menuPrice * cart.buyCount}</td>
+					</tr>	
+			</c:forEach>
+		</table>
+		<span class="total_text">총액 : </span> 
+		<span class="total_price"></span>
+		<form class="totalForm">
+			<input hidden class="totalInput" name="totalPrice" type="number" value="">
+			<button class="submitBtn" type="submit" formaction="main" formmethod="get">이전으로</button>
+			<button class="submitBtn" type="submit" formaction="buyPage" formmethod="post">결제하기</button>
+		</form>
+	</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

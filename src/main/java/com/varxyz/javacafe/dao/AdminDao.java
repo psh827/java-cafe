@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -65,7 +66,7 @@ public class AdminDao {
 	}
 
 	public List<MenuItem> viewAllMenu() {
-		String sql = "SELECT m.menuItemName, m.menuPrice, m.ihb, m.outOfStock, l.largeCategoryName,"
+		String sql = "SELECT m.mId, m.menuItemName, m.menuPrice, m.ihb, m.outOfStock, l.largeCategoryName,"
 				+ " i.imgUrl, i.imgName, m.regDate FROM MenuItem m INNER JOIN Image i ON m.mId = i.menuFk"
 				+ " INNER JOIN LargeCategory l ON l.lcId = m.lcFk";
 		
@@ -76,6 +77,7 @@ public class AdminDao {
 				MenuItem menuItem = new MenuItem(rs.getString("menuItemName"), rs.getInt("menuPrice"),
 						rs.getString("ihb"), rs.getString("outOfStock").charAt(0), new LargeCategory(rs.getString("largeCategoryName")),
 								new Image(rs.getString("imgUrl"), rs.getString("imgName")), rs.getTimestamp("regDate"));
+				menuItem.setMenuid(rs.getLong("mId"));
 				return menuItem;
 			}
 			
@@ -93,5 +95,57 @@ public class AdminDao {
 			}
 		});
 	}
+
+	public LargeCategory isCate(LargeCategory largecategory) {
+		try {
+			String sql = "SELECT * FROM LargeCategory WHERE largeCategoryName = ?";
+			return jdbcTemplate.queryForObject(sql, new RowMapper<LargeCategory>() {
+
+				@Override
+				public LargeCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+					LargeCategory lc = new LargeCategory();
+					lc.setLcId(rs.getLong("lcId"));
+					lc.setLargeCategoryName(rs.getString("largeCategoryName"));
+					return lc;
+				}
+				
+			}, largecategory.getLargeCategoryName());
+		}catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	public MenuItem isMenuItem(MenuItem menuitem) {
+		try {
+			String sql = "SELECT * FROM MenuItem WHERE menuItemName = ?";
+			return jdbcTemplate.queryForObject(sql, new RowMapper<MenuItem>() {
+
+				@Override
+				public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
+					MenuItem menuItem = new MenuItem();
+					menuItem.setMenuItemName(rs.getString("menuItemName"));
+					menuItem.setIhb(rs.getString("ihb"));
+					return menuItem;
+				}
+				
+			}, menuitem.getMenuItemName());
+		}catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public int deleteMenuByMenuItemName(long menuid) {
+		String sql = "DELETE i FROM Image i INNER JOIN MenuItem m ON i.menuFk = m.mId WHERE m.mId=?";
+		String sql2 = "DELETE FROM MenuItem WHERE mId=?";
+		try {
+			jdbcTemplate.update(sql, menuid);
+			jdbcTemplate.update(sql2, menuid);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 
 }
